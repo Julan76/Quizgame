@@ -1,0 +1,45 @@
+<div class="main-div">
+  <mat-card>
+    <mat-horizontal-stepper #stepper>
+      <mat-step [stepControl]="userLoginControl" >
+        <form  [formGroup]="userLoginControl"(ngSubmit)="onLogin()" >
+          <ng-template matStepLabel>Connexion</ng-template>
+          <mat-form-field class="center">
+            <input matInput placeholder="Email"  formControlName="mail" required [email]="true">
+          </mat-form-field>
+          <br>
+          <mat-form-field class="center">
+            <input type="password" matInput placeholder="Password"  formControlName="password" required>
+          </mat-form-field>
+          <div class="center">
+            <button  [disabled]="userLoginControl.invalid" mat-stroked-button color="primary">Connexion</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="userRegisterControl">
+        <form [formGroup]="userRegisterControl" (ngSubmit)="onRegister()" >
+          <ng-template matStepLabel>Inscription </ng-template>
+          <mat-form-field class="center">
+            <input matInput placeholder="Prenom" formControlName="firstname" required >
+          </mat-form-field>
+          <br>
+          <mat-form-field class="center">
+            <input matInput placeholder="Nom de famille" formControlName="lastname" required >
+          </mat-form-field>
+          <mat-form-field class="center">
+            <input type="password" matInput placeholder="Mot de passe" formControlName="password" required >
+          </mat-form-field>
+          <mat-form-field class="center">
+            <input type="password" matInput placeholder="Confirmer votre mot de passe" formControlName="repassword" required >
+          </mat-form-field>
+          <mat-form-field class="center">
+            <input matInput placeholder="Email" formControlName="mail" [email]="true" required >
+          </mat-form-field>
+          <div class="center">
+            <button [disabled]="userRegisterControl.invalid" mat-raised-button color="primary" >Inscription</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

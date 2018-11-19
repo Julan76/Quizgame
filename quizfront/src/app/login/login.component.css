@@ -1,0 +1,17 @@
+
+.center{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.main-div{
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mat-card{
+  height: auto;
+  margin-top: 15%;
+
+}
