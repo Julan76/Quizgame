@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {JwtHelper} from 'angular2-jwt';
+import {UserService} from "../user/user.service";
 
 @Injectable()
 export class AuthenticationService {
@@ -12,7 +13,7 @@ export class AuthenticationService {
       'Content-Type':  'application/json',
     })
   };
-  constructor(private  http: HttpClient) {}
+  constructor(private  http: HttpClient,private userService: UserService) {}
 
   login(user) {
     return this.http.post(this.host + '/login', user, {observe: 'response'});
@@ -26,7 +27,9 @@ export class AuthenticationService {
     this.jwtToken = jwt;
     localStorage.setItem('token', jwt);
     const jwtHelper = new JwtHelper();
-    this.roles = jwtHelper.decodeToken(this.jwtToken).roles;
+    const decodeToken= jwtHelper.decodeToken(this.jwtToken);
+    this.userService.saveUser(decodeToken);
+    this.roles = decodeToken.roles;
   }
   loadToken() {
     this.jwtToken = localStorage.getItem('token');
@@ -40,5 +43,11 @@ export class AuthenticationService {
       if (r.authority === 'ADMIN') { return true; }
     }
     return false;
+  }
+  isLogged() {
+    if(this.loadToken()==null) {
+      return false;
+    }
+    else return true;
   }
 }

@@ -1,8 +1,14 @@
 <mat-toolbar class="mat-elevation-z6" color="primary">
-  <span>Application Title</span>
+  <span>Quizz App</span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
 
-  <span>Right Aligned Text</span>
+
+  <span *ngIf="!appUser">login</span>
+  <span *ngIf="appUser">
+    <i class="material-icons">
+      person
+    </i>
+  </span>
 </mat-toolbar>
