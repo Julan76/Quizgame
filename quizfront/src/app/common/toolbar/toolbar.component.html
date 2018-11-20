@@ -7,6 +7,9 @@
 
   <span *ngIf="!appUser"><span style="cursor: pointer" (click)="redirectToLogin()">connexion</span>
   </span>
+  <span *ngIf="isAdmin">
+    <button mat-button>Administrer</button>
+  </span>
   <span style="cursor: pointer" *ngIf="appUser">
      <mat-icon mat-button [matMenuTriggerFor]="menu">person</mat-icon>
     <mat-menu #menu="matMenu">

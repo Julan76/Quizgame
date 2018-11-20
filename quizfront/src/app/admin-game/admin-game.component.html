@@ -1,3 +1,38 @@
-<p>
-  admin-game works!
-</p>
+<mat-tab-group>
+  <mat-tab label="Créer un quiz"> Content 1 </mat-tab>
+  <mat-tab label="Modifier un quiz"> Content 2 </mat-tab>
+  <mat-tab label="Supprimer un quiz"> Content 3 </mat-tab>
+  <mat-tab label="Créer des questions">
+
+    <form  (ngSubmit)="onSubmit()" #questionForm="ngForm">
+    <div >
+
+      <mat-form-field class="example-container">
+        <input matInput placeholder="Theme" required [(ngModel)]="question.theme" [ngModelOptions]="{standalone: true}">
+      </mat-form-field >
+
+      <mat-form-field class="example-container">
+        <textarea matInput placeholder="Intitulé" [(ngModel)]="question.label" [ngModelOptions]="{standalone: true}" required></textarea>
+      </mat-form-field>
+
+        <mat-form-field style="width: 90%">
+          <input matInput placeholder="Reponses possibles" required>
+        </mat-form-field >
+        <button color="primary" style="width: 10%" mat-button>Ajouter
+        </button>
+    </div>
+
+    <div *ngIf="answerList">
+    <h2 *ngIf="answerList.length>0">Ma liste de réponse</h2>
+    <ul class="heroes">
+      <li *ngFor="let answer of question.answerList"
+          [class.selected]="answer === rightAnswer"
+          (click)="onSelectCorrectAnswer(answer)">
+        <span class="badge">*</span> {{answer.label}}
+      </li>
+    </ul>
+    </div>
+    </form>
+  </mat-tab>
+
+</mat-tab-group>

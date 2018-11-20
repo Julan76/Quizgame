@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.userLoginControl.value).subscribe(resp => {
         const jwtToken = resp.headers.get('Authorization');
         this.authService.saveToken(jwtToken);
-        this.router.navigateByUrl('/game-list');
+        this.router.navigateByUrl('/admin-game');
       },
       error => {
         this.snackBar.open('Identifiants incorrects ', error.message, {

@@ -10,7 +10,8 @@ public class Question {
     @SequenceGenerator(name = "question", sequenceName = "question_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question")
     private Long id;
-    private String name;
+    private String label;
+    private String theme;
     @OneToMany
     private List<Answer> answerList;
     @OneToOne

@@ -1,14 +1,32 @@
+import {Role} from "./Role";
+
 export class AppUser {
-  private mail: string;
-  private firstName: string;
-  private lastName: string;
-  private roles: string [];
+  private _mail: string;
+  private _firstName: string;
+  private _lastName: string;
+  private _roles: Role [];
 
 
-  public constructor(mail: string, firstName: string, lastName: string, roles: string[]) {
-    this.mail = mail;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.roles = roles;
+  public constructor(mail: string, firstName: string, lastName: string, roles: Role[]) {
+    this._mail = mail;
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this._roles = roles;
+  }
+
+  get mail(): string {
+    return this._mail;
+  }
+
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get lastName(): string {
+    return this._lastName;
+  }
+
+  get roles(): Role[] {
+    return this._roles;
   }
 }

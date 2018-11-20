@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Period;
 import java.util.List;
 
 @Getter
@@ -16,11 +15,8 @@ public class Game {
     @SequenceGenerator(name = "game", sequenceName = "game_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game")
     private Long id;
-    private Period duration;
-    @ManyToMany
-    private List<Question> questionList;
     @OneToMany
     private List<Player> playerList;
-
-
+    @OneToOne
+    private Quizz quizz;
 }
