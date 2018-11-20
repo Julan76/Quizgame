@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../service/authentication/authentication.service';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatStepper} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -47,15 +47,15 @@ export class LoginComponent implements OnInit {
     });
 
   }
-  onRegister() {
+  onRegister(stepper: MatStepper) {
     if ( this.userRegisterControl.value.password.localeCompare(this.userRegisterControl.value.repassword) === 0) {
       this.authService.register(this.userRegisterControl.value).subscribe(resp => {
         this.snackBar.open('Votre compte a bien été créé ', 'welcome !' , {
           duration: 5000,
         });
-
+        stepper.previous();
       }, error1 =>  {
-        this.snackBar.open('Votre compte n\'a pas été créé !', error1.message, {
+        this.snackBar.open('Votre compte n\'a pas été créé !', error1.error.message, {
           duration: 5000,
         });
       });

@@ -17,7 +17,7 @@
         </form>
       </mat-step>
       <mat-step [stepControl]="userRegisterControl">
-        <form [formGroup]="userRegisterControl" (ngSubmit)="onRegister()" >
+        <form [formGroup]="userRegisterControl" (ngSubmit)="onRegister(stepper)" >
           <ng-template matStepLabel>Inscription </ng-template>
           <mat-form-field class="center">
             <input matInput placeholder="Prenom" formControlName="firstname" required >
