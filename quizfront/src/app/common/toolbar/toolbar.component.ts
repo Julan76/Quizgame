@@ -24,6 +24,9 @@ export class ToolbarComponent implements OnInit {
   redirectToLogin() {
     this.router.navigate(['/login'])
   }
+  logout(){
+    this.userService.logout();
+  }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

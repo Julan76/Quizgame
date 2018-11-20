@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
           duration: 5000,
         });
         stepper.previous();
+        this.buildFormRegister();
       }, error1 =>  {
         this.snackBar.open('Votre compte n\'a pas été créé !', error1.error.message, {
           duration: 5000,

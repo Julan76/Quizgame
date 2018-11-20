@@ -36,7 +36,7 @@ export class AuthenticationService {
   }
   logout() {
     this.jwtToken = null;
-    localStorage.removeItem('token');
+    this.userService.logout()
   }
   isAdmin() {
     for (const r of this.roles) {
