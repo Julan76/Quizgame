@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../service/user/user.service";
 import {AppUser} from "../../domain/AppUser";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-toolbar',
@@ -9,19 +10,21 @@ import {AppUser} from "../../domain/AppUser";
 })
 export class ToolbarComponent implements OnInit {
   appUser: AppUser ;
+  private subscription;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,private router: Router) { }
 
   ngOnInit() {
-    console.log("ggg");
-    console.log(this.appUser);
-    this.appUser= this.userService.getUser().subscribe(
+    this.subscription = this.userService.theUser$.subscribe(
       user => {
         this.appUser= user
       }
-    );
-    console.log(this.appUser);
-
+    )
   }
-
+  redirectToLogin() {
+    this.router.navigate(['/login'])
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

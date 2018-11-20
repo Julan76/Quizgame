@@ -5,10 +5,9 @@
   <span class="example-fill-remaining-space"></span>
 
 
-  <span *ngIf="!appUser">login</span>
+  <span *ngIf="!appUser"><span style="cursor: pointer" (click)="redirectToLogin()">login</span>
+  </span>
   <span *ngIf="appUser">
-    <i class="material-icons">
-      person
-    </i>
+     <mat-icon>person</mat-icon>
   </span>
 </mat-toolbar>
