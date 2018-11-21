@@ -5,33 +5,42 @@
   <mat-tab label="Créer des questions">
 
     <form  (ngSubmit)="onSubmit()" #questionForm="ngForm">
-    <div >
-
       <mat-form-field class="example-container">
-        <input matInput placeholder="Theme" required [(ngModel)]="question.theme" [ngModelOptions]="{standalone: true}">
+        <input matInput placeholder="Theme" required [(ngModel)]="question.theme" name="theme">
       </mat-form-field >
 
+
       <mat-form-field class="example-container">
-        <textarea matInput placeholder="Intitulé" [(ngModel)]="question.label" [ngModelOptions]="{standalone: true}" required></textarea>
+        <textarea matInput placeholder="Intitulé" [(ngModel)]="question.label" name="label" required></textarea>
       </mat-form-field>
 
-        <mat-form-field style="width: 90%">
-          <input matInput placeholder="Reponses possibles" required>
+        <mat-form-field style="width: 80%">
+          <input matInput placeholder="Reponses possibles"  [(ngModel)]="possibleAnswer.label" name="label">
         </mat-form-field >
-        <button color="primary" style="width: 10%" mat-button>Ajouter
-        </button>
+      <a mat-button style="width: 10%" color="primary" (click)="addAnswer()">Ajouter</a>
+
+
+
+      <div *ngIf="answerList">
+        <mat-expansion-panel *ngIf="answerList.length>0" (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Ma liste de réponses
+            </mat-panel-title>
+            <mat-panel-description>(cliquer pour sélectionner la bonne réponse )
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ul class="heroes">
+            <li *ngFor="let answer of answerList"
+                [class.selected]="answer === rightAnswer"
+                (click)="onSelectCorrectAnswer(answer)">
+              <span class="badge">*</span> {{answer.label}}
+            </li>
+          </ul>
+        </mat-expansion-panel>
     </div>
 
-    <div *ngIf="answerList">
-    <h2 *ngIf="answerList.length>0">Ma liste de réponse</h2>
-    <ul class="heroes">
-      <li *ngFor="let answer of question.answerList"
-          [class.selected]="answer === rightAnswer"
-          (click)="onSelectCorrectAnswer(answer)">
-        <span class="badge">*</span> {{answer.label}}
-      </li>
-    </ul>
-    </div>
     </form>
   </mat-tab>
 

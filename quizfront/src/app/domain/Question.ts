@@ -7,6 +7,21 @@ export class Question {
   private _rightAnswer: Answer;
 
 
+  set label(value: string) {
+    this._label = value;
+  }
+
+  set theme(value: string) {
+    this._theme = value;
+  }
+
+  set answerList(value: Answer[]) {
+    this._answerList = value;
+  }
+
+  set rightAnswer(value: Answer) {
+    this._rightAnswer = value;
+  }
 
   get label(): string {
     return this._label;
