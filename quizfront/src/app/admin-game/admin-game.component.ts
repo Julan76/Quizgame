@@ -36,4 +36,14 @@ export class AdminGameComponent implements OnInit {
   onSelectCorrectAnswer(answer: Answer): void {
     this.rightAnswer=answer;
   }
+  submitQuestionForm(){
+    if(this.answerList.length<2){
+      this.snackBar.open('2 réponses au moins sont également indispensables pour valider le formulaire !', '', {
+        duration: 5000,
+      });
+    }
+    else {
+
+    }
+  }
 }

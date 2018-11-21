@@ -4,18 +4,18 @@
   <mat-tab label="Supprimer un quiz"> Content 3 </mat-tab>
   <mat-tab label="Créer des questions">
 
-    <form  (ngSubmit)="onSubmit()" #questionForm="ngForm">
+    <form  (ngSubmit)="submitQuestionForm()" #questionForm="ngForm">
       <mat-form-field class="example-container">
         <input matInput placeholder="Theme" required [(ngModel)]="question.theme" name="theme">
       </mat-form-field >
 
 
       <mat-form-field class="example-container">
-        <textarea matInput placeholder="Intitulé" [(ngModel)]="question.label" name="label" required></textarea>
+        <textarea matInput placeholder="libellé" [(ngModel)]="question.label" name="label" required></textarea>
       </mat-form-field>
 
         <mat-form-field style="width: 80%">
-          <input matInput placeholder="Reponses possibles"  [(ngModel)]="possibleAnswer.label" name="label">
+          <input matInput placeholder="Reponses possibles"  [(ngModel)]="possibleAnswer.label" [ngModelOptions]="{standalone: true}" >
         </mat-form-field >
       <a mat-button style="width: 10%" color="primary" (click)="addAnswer()">Ajouter</a>
 
@@ -40,7 +40,8 @@
           </ul>
         </mat-expansion-panel>
     </div>
-
+      <br>
+      <button  mat-raised-button color="primary">Primary</button>
     </form>
   </mat-tab>
 
