@@ -1,11 +1,13 @@
-export class Answer {
-  private label:string;
 
-  get getLabel(): string {
-    return this.label;
+export class Answer {
+  private _label:string;
+
+
+  get label(): string {
+    return this._label;
   }
 
-  set getLabel(value: string) {
-    this.label = value;
+  set label(value: string) {
+    this._label = value;
   }
 }

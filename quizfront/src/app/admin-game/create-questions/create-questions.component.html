@@ -1,0 +1,33 @@
+<form  (ngSubmit)="submitQuestionForm()" #questionForm="ngForm">
+  <mat-form-field class="example-container">
+    <input matInput placeholder="Theme" required [(ngModel)]="question.theme" name="theme">
+  </mat-form-field >
+  <mat-form-field class="example-container">
+    <textarea matInput placeholder="libellé" [(ngModel)]="question.label" name="label" required></textarea>
+  </mat-form-field>
+  <mat-form-field style="width: 80%">
+    <input matInput placeholder="Reponses possibles"  [(ngModel)]="possibleAnswer.label" [ngModelOptions]="{standalone: true}" >
+  </mat-form-field >
+  <a mat-button style="width: 10%" color="primary" (click)="addAnswer()">Ajouter</a>
+  <div *ngIf="answerList">
+    <mat-expansion-panel *ngIf="answerList.length>0" (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Ma liste de réponses
+        </mat-panel-title>
+        <mat-panel-description>(cliquer pour sélectionner la bonne réponse )
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ul class="heroes">
+        <li *ngFor="let answer of answerList"
+            [class.selected]="answer === rightAnswer"
+            (click)="onSelectCorrectAnswer(answer)">
+          <span class="badge">*</span> {{answer.label}}
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </div>
+  <br>
+  <button  mat-raised-button color="primary">Créer</button>
+</form>

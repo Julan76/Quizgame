@@ -1,3 +1,4 @@
+
 export class Role {
   private _authority : string;
 

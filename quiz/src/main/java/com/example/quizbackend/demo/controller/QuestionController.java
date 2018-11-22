@@ -5,9 +5,12 @@ import com.example.quizbackend.demo.domain.Question;
 import com.example.quizbackend.demo.repository.AnswerRepository;
 import com.example.quizbackend.demo.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class QuestionController {
@@ -36,5 +39,10 @@ public class QuestionController {
                     })
         );
     return questionRepository.save(question);
+    }
+
+    @GetMapping("/questions")
+    public List<Question> retrieveQuestions(){
+        return questionRepository.findAll();
     }
 }

@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.userLoginControl.value).subscribe(resp => {
         const jwtToken = resp.headers.get('Authorization');
         this.authService.saveToken(jwtToken);
-        this.router.navigateByUrl('/admin-game');
+        this.router.navigateByUrl('/admin-game'); //fixme redirect normal user to quizz list
       },
       error => {
         this.snackBar.open('Identifiants incorrects ', error.message, {

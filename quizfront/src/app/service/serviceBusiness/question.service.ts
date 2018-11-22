@@ -21,6 +21,11 @@ export class QuestionService {
       tap((question: Question) => this.successMessage()),
       catchError(this.handleError<Question>('question')))
   }
+  getQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>(this.host+'/questions',this.httpOptions).pipe(
+      catchError(this.handleError<Question[]>('question'))
+    )
+  }
   successMessage(){
     this.snackBar.open('Sauvegarde effectuée ! ', 'Bien joué !', {
       duration: 4000,
