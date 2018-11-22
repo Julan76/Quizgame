@@ -48,9 +48,9 @@ export class AuthenticationService {
   }
 
   isLogged() {
-    if(this.getToken()==null) {
-      return false;
+    if(this.getToken()) {
+      return true;
     }
-    else return true;
+    else return false;
   }
 }

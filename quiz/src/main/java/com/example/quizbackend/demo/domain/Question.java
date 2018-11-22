@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Table
+@Table(uniqueConstraints={@UniqueConstraint(columnNames ={"label","theme"})})
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
@@ -19,10 +19,10 @@ public class Question {
     private Long id;
     private String label;
     private String theme;
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany
     @NotEmpty
     private List<Answer> answerList;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     private Answer rightAnswer;
 
 }
