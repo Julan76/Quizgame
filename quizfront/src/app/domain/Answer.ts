@@ -1,11 +1,11 @@
 export class Answer {
-  private _label:string;
+  private label:string;
 
-  get label(): string {
-    return this._label;
+  get getLabel(): string {
+    return this.label;
   }
 
-  set label(value: string) {
-    this._label = value;
+  set getLabel(value: string) {
+    this.label = value;
   }
 }

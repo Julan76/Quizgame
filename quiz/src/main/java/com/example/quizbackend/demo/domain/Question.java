@@ -1,10 +1,17 @@
 package com.example.quizbackend.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Table
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
 public class Question {
     @Id
     @SequenceGenerator(name = "question", sequenceName = "question_seq")
@@ -12,9 +19,10 @@ public class Question {
     private Long id;
     private String label;
     private String theme;
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
+    @NotEmpty
     private List<Answer> answerList;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Answer rightAnswer;
 
 }

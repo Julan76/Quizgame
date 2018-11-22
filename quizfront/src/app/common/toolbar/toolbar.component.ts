@@ -14,15 +14,22 @@ export class ToolbarComponent implements OnInit {
   private subscription;
   isAdmin: boolean=false;
 
-  constructor(private userService: UserService,private router: Router) { }
+  constructor(private userService: UserService,private router: Router,private authenticationService : AuthenticationService) { }
 
   ngOnInit() {
-    this.subscription = this.userService.theUser$.subscribe(
-      user => {
-        this.appUser= user;
-        this.isAdmin=this.userService.isAdmin(user);
-      }
-    )
+    if(this.authenticationService.isLogged()){
+      this.appUser= this.userService.getLoggedUser(this.authenticationService.getToken());
+      this.isAdmin=this.userService.isAdmin(this.appUser);
+      console.log(this.isAdmin,this.appUser)
+    }
+    else {
+      this.subscription = this.userService.theUser$.subscribe(
+        user => {
+          this.appUser= user;
+          this.isAdmin=this.userService.isAdmin(user);
+        }
+      )
+    }
   }
   redirectToLogin() {
     this.router.navigate(['/login'])

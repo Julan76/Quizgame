@@ -1,41 +1,41 @@
 import {Answer} from "./Answer";
 
 export class Question {
-  private _label:string;
-  private _theme:string;
-  private _answerList: Answer[];
-  private _rightAnswer: Answer;
+  private label:string;
+  private theme:string;
+  private answerList: Answer[];
+  private rightAnswer: Answer;
 
 
-  set label(value: string) {
-    this._label = value;
+  set getLabel(value: string) {
+    this.label = value;
   }
 
-  set theme(value: string) {
-    this._theme = value;
+  set getTheme(value: string) {
+    this.theme = value;
   }
 
-  set answerList(value: Answer[]) {
-    this._answerList = value;
+  set getAnswerList(value: Answer[]) {
+    this.answerList = value;
   }
 
-  set rightAnswer(value: Answer) {
-    this._rightAnswer = value;
+  set getRightAnswer(value: Answer) {
+    this.rightAnswer = value;
   }
 
-  get label(): string {
-    return this._label;
+  get getLabel(): string {
+    return this.label;
   }
 
-  get theme(): string {
-    return this._theme;
+  get getTheme(): string {
+    return this.theme;
   }
 
-  get answerList(): Answer[] {
-    return this._answerList;
+  get getAnswerList(): Answer[] {
+    return this.answerList;
   }
 
-  get rightAnswer(): Answer {
-    return this._rightAnswer;
+  get getRightAnswer(): Answer {
+    return this.rightAnswer;
   }
 }

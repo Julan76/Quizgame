@@ -6,16 +6,16 @@
 
     <form  (ngSubmit)="submitQuestionForm()" #questionForm="ngForm">
       <mat-form-field class="example-container">
-        <input matInput placeholder="Theme" required [(ngModel)]="question.theme" name="theme">
+        <input matInput placeholder="Theme" required [(ngModel)]="question.getTheme" name="theme">
       </mat-form-field >
 
 
       <mat-form-field class="example-container">
-        <textarea matInput placeholder="libellé" [(ngModel)]="question.label" name="label" required></textarea>
+        <textarea matInput placeholder="libellé" [(ngModel)]="question.getLabel" name="label" required></textarea>
       </mat-form-field>
 
         <mat-form-field style="width: 80%">
-          <input matInput placeholder="Reponses possibles"  [(ngModel)]="possibleAnswer.label" [ngModelOptions]="{standalone: true}" >
+          <input matInput placeholder="Reponses possibles"  [(ngModel)]="possibleAnswer.getLabel" [ngModelOptions]="{standalone: true}" >
         </mat-form-field >
       <a mat-button style="width: 10%" color="primary" (click)="addAnswer()">Ajouter</a>
 
@@ -35,13 +35,13 @@
             <li *ngFor="let answer of answerList"
                 [class.selected]="answer === rightAnswer"
                 (click)="onSelectCorrectAnswer(answer)">
-              <span class="badge">*</span> {{answer.label}}
+              <span class="badge">*</span> {{answer.getLabel}}
             </li>
           </ul>
         </mat-expansion-panel>
     </div>
       <br>
-      <button  mat-raised-button color="primary">Primary</button>
+      <button  mat-raised-button color="primary">Créer</button>
     </form>
   </mat-tab>
 

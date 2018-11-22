@@ -1,5 +1,6 @@
 package com.example.quizbackend.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Data
 @Table
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Ranking {
     @Id
     @SequenceGenerator(name = "ranking", sequenceName = "ranking_seq")

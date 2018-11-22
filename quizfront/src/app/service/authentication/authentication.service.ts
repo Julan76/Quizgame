@@ -3,7 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {JwtHelper} from 'angular2-jwt';
 import {UserService} from "../user/user.service";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
   private host = 'http://localhost:8080';
   private jwtToken = null;
@@ -31,8 +33,8 @@ export class AuthenticationService {
     this.userService.saveUser(decodeToken);
     this.roles = decodeToken.roles;
   }
-  loadToken() {
-    this.jwtToken = localStorage.getItem('token');
+   getToken() {
+   return  localStorage.getItem('token');
   }
   logout() {
     this.jwtToken = null;
@@ -44,8 +46,9 @@ export class AuthenticationService {
     }
     return false;
   }
+
   isLogged() {
-    if(this.loadToken()==null) {
+    if(this.getToken()==null) {
       return false;
     }
     else return true;
