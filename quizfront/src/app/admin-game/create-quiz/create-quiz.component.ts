@@ -11,7 +11,7 @@ import {MatSnackBar} from "@angular/material";
 })
 export class CreateQuizComponent implements OnInit {
   quiz: Quiz = new Quiz();
-  quizQuestions: Question[];
+  quizQuestions: Question[]=[];
   allQuestions: Question[];
   constructor( private question: QuestionService,private snackBar:MatSnackBar) { }
 
@@ -29,8 +29,12 @@ export class CreateQuizComponent implements OnInit {
         });
       });
   }
-  get watch(){
-    return JSON.stringify(this.allQuestions)
+  addQuestionToQuiz(aQuestion : Question) : void {
+    if(!this.quizQuestions.find(x => x.label===aQuestion.label)){
+      this.quizQuestions.push(aQuestion);
+    }
   }
-
+  removeQuestion (aQuestion : Question) : void {
+    this.quizQuestions.splice(this.quizQuestions.indexOf(aQuestion,0),1)
+  }
 }

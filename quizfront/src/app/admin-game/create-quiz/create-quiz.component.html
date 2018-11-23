@@ -21,10 +21,21 @@
     </mat-grid-tile>
 
   </mat-grid-list>
-  <mat-list role="list">
-    <mat-list-item *ngFor="let aQuestion of allQuestions" role="listitem">{{aQuestion.label}}</mat-list-item>
-  </mat-list>
-
+  <div id="textbox">
+    <p class="alignleft"><mat-list role="list">
+      <mat-list-item *ngFor="let aQuestion of allQuestions" role="listitem">
+        <span style="cursor: pointer" (click)="addQuestionToQuiz(aQuestion)"  matTooltip="{{aQuestion.rightAnswer.label}}"  matTooltipPosition="right">{{aQuestion.label}} ({{aQuestion.theme}})</span>
+      </mat-list-item>
+    </mat-list></p>
+    <p class="aligncenter"><mat-icon >arrow_forward</mat-icon></p>
+    <p class="alignright">
+      <mat-list style="text-align: right" role="list" *ngIf="quizQuestions">
+      <mat-list-item *ngFor="let quizQuestion of quizQuestions" role="listitem">
+        <span style="cursor: pointer" (click)="removeQuestion(aQuestion)"  matTooltip="{{quizQuestion.rightAnswer.label}}"  matTooltipPosition="right">{{quizQuestion.label}} ({{quizQuestion.theme}})</span>
+      </mat-list-item>
+    </mat-list></p>
+  </div>
+  <div style="clear: both;"></div>
   <br>
   <button  mat-raised-button color="primary">Créer</button>
 </form>

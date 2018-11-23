@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {AppUser} from "../../domain/AppUser";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {AuthenticationService} from "../authentication/authentication.service";
 import {JwtHelper} from "angular2-jwt";
 
 @Injectable({
@@ -31,7 +30,7 @@ export class UserService {
   isAdmin(user : AppUser){
     if(user){
       for (const r of user.getroles) {
-        if (r.getauthority === 'ADMIN') { return true; }
+        if (r.authority === 'ADMIN') { return true; }
       }
       return false;
     }
