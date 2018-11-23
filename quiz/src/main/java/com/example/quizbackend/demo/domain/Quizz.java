@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.Period;
 import java.util.List;
 
@@ -17,8 +18,11 @@ public class Quizz {
     @SequenceGenerator(name = "quizz", sequenceName = "quizz_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quizz")
     private Long id;
-    private Period duration;
+    @NotNull
+    private Long duration;
+    @NotNull
     private String name;
+    @NotNull
     private String description;
     @ManyToMany
     @NotEmpty

@@ -29,7 +29,7 @@ export class UserService {
   }
   isAdmin(user : AppUser){
     if(user){
-      for (const r of user.getroles) {
+      for (const r of user.roles) {
         if (r.authority === 'ADMIN') { return true; }
       }
       return false;

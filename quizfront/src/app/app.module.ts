@@ -14,6 +14,7 @@ import {TokenInterceptorService} from "./service/interceptor/token-interceptor.s
 import {JwtValidityInterceptorService} from "./service/interceptor/jwt-validity-interceptor.service";
 import {CreateQuestionsComponent} from './admin-game/create-questions/create-questions.component';
 import {CreateQuizComponent} from './admin-game/create-quiz/create-quiz.component';
+import {FilterPipe} from "./common/filter/filterPipe";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {CreateQuizComponent} from './admin-game/create-quiz/create-quiz.componen
     ToolbarComponent,
     CreateQuestionsComponent,
     CreateQuizComponent,
-
+    FilterPipe
   ],
   imports: [
     BrowserModule, MyOwnCustomMaterialModuleModule, HttpClientModule, FormsModule, AppRoutingModule, ReactiveFormsModule

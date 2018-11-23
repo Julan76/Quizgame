@@ -3,6 +3,7 @@ import {Quiz} from "../../domain/Quiz";
 import {QuestionService} from "../../service/serviceBusiness/question.service";
 import {Question} from "../../domain/Question";
 import {MatSnackBar} from "@angular/material";
+import {QuizService} from "../../service/serviceBusiness/quiz.service";
 
 @Component({
   selector: 'app-create-quiz',
@@ -13,7 +14,9 @@ export class CreateQuizComponent implements OnInit {
   quiz: Quiz = new Quiz();
   quizQuestions: Question[]=[];
   allQuestions: Question[];
-  constructor( private question: QuestionService,private snackBar:MatSnackBar) { }
+  searchText='';
+  constructor( private question: QuestionService,private snackBar:MatSnackBar,private quizService: QuizService) { }
+
 
   ngOnInit() {
   this.loadQuestions();
@@ -21,7 +24,6 @@ export class CreateQuizComponent implements OnInit {
   loadQuestions() : void {
     this.question.getQuestions().subscribe(questions=> {
         this.allQuestions=questions;
-        console.log(this.allQuestions)
       },
       error => {
         this.snackBar.open('Impossible de récupérer les questions', error.message, {
@@ -36,5 +38,11 @@ export class CreateQuizComponent implements OnInit {
   }
   removeQuestion (aQuestion : Question) : void {
     this.quizQuestions.splice(this.quizQuestions.indexOf(aQuestion,0),1)
+  }
+  saveQuiz(): void {
+    if(this.quizQuestions.length>0){
+      this.quiz.questionList=this.quizQuestions;
+      this.quizService.saveQuiz(this.quiz).subscribe();
+    }
   }
 }

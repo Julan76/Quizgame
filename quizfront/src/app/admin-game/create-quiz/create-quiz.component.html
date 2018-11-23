@@ -1,12 +1,12 @@
-<form  (ngSubmit)="submitQuizForm()" #questionForm="ngForm">
+<form  (ngSubmit)="saveQuiz()" #questionForm="ngForm">
   <mat-form-field class="example-container">
-    <input matInput placeholder="nom" required [(ngModel)]="quiz.getname" name="name" >
+    <input matInput placeholder="nom" required [(ngModel)]="quiz.name" name="name" >
   </mat-form-field >
   <mat-form-field class="example-container">
-    <input matInput placeholder="description" required [(ngModel)]="quiz.getdescription" name="description" >
+    <input matInput placeholder="description" required [(ngModel)]="quiz.description" name="description" >
   </mat-form-field >
   <mat-form-field class="example-container">
-    <input matInput placeholder="durée en minutes" type="number" required  [(ngModel)]="quiz.getduration" name="duration">
+    <input matInput placeholder="durée en minutes" type="number" required  [(ngModel)]="quiz.duration" name="duration">
   </mat-form-field >
   <mat-grid-list cols=4 rowHeight="40px">
     <mat-grid-tile
@@ -19,11 +19,22 @@
       [rowspan]=1 >
       Questions choisies pour le quiz
     </mat-grid-tile>
+    <mat-grid-tile
+      [colspan]=2
+      [rowspan]=1>
+      <mat-form-field>
+      <input matInput placeholder="recherche par thème" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchText" >
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile
+      [colspan]=2
+      [rowspan]=1 >
+    </mat-grid-tile>
 
   </mat-grid-list>
-  <div id="textbox">
+  <div *ngIf="allQuestions" id="textbox">
     <p class="alignleft"><mat-list role="list">
-      <mat-list-item *ngFor="let aQuestion of allQuestions" role="listitem">
+      <mat-list-item *ngFor="let aQuestion of allQuestions | filter: searchText"  role="listitem">
         <span style="cursor: pointer" (click)="addQuestionToQuiz(aQuestion)"  matTooltip="{{aQuestion.rightAnswer.label}}"  matTooltipPosition="right">{{aQuestion.label}} ({{aQuestion.theme}})</span>
       </mat-list-item>
     </mat-list></p>
@@ -31,11 +42,11 @@
     <p class="alignright">
       <mat-list style="text-align: right" role="list" *ngIf="quizQuestions">
       <mat-list-item *ngFor="let quizQuestion of quizQuestions" role="listitem">
-        <span style="cursor: pointer" (click)="removeQuestion(aQuestion)"  matTooltip="{{quizQuestion.rightAnswer.label}}"  matTooltipPosition="right">{{quizQuestion.label}} ({{quizQuestion.theme}})</span>
+        <span style="cursor: pointer" (click)="removeQuestion(aQuestion)" matTooltip="{{quizQuestion.rightAnswer.label}}"  matTooltipPosition="right">{{quizQuestion.label}} ({{quizQuestion.theme}})</span>
       </mat-list-item>
     </mat-list></p>
   </div>
   <div style="clear: both;"></div>
   <br>
-  <button  mat-raised-button color="primary">Créer</button>
+  <button   mat-raised-button color="primary">Créer</button>
 </form>

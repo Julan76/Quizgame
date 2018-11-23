@@ -1,9 +1,7 @@
 
 export class Role {
-  private authority : string;
+  public authority : string;
 
 
-  get getauthority(): string {
-    return this.authority;
-  }
+
 }

@@ -9,6 +9,8 @@
     <input matInput placeholder="Reponses possibles"  [(ngModel)]="possibleAnswer.label" [ngModelOptions]="{standalone: true}" >
   </mat-form-field >
   <a mat-button style="width: 10%" color="primary" (click)="addAnswer()">Ajouter</a>
+  <a (click)="deleteAnswers()" mat-raised-button>supprimer</a>
+
   <div *ngIf="answerList">
     <mat-expansion-panel *ngIf="answerList.length>0" (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false">

@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatTabChangeEvent} from "@angular/material";
+import {CreateQuizComponent} from "./create-quiz/create-quiz.component";
 
 
 @Component({
@@ -7,11 +9,16 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./admin-game.component.css']
 })
 export class AdminGameComponent implements OnInit {
+  @ViewChild('createQuizChildComponent') createQuizChildComponent;
 
   constructor() { }
 
   ngOnInit() {
   }
-
+  updateViewCreateQuiz(event : MatTabChangeEvent): void {
+    if(event.tab.textLabel == "Créer un quiz"){
+      this.createQuizChildComponent.loadQuestions();
+    }
+  }
 
 }

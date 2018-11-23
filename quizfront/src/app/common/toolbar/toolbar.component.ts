@@ -20,7 +20,6 @@ export class ToolbarComponent implements OnInit {
     if(this.authenticationService.isLogged()){
       this.appUser= this.userService.getLoggedUser(this.authenticationService.getToken());
       this.isAdmin=this.userService.isAdmin(this.appUser);
-      console.log(this.isAdmin,this.appUser)
     }
     else {
       this.subscription = this.userService.theUser$.subscribe(
