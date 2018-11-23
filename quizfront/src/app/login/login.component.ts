@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../service/authentication/authentication.service';
 import {MatSnackBar, MatStepper} from '@angular/material';
+import {UserService} from "../service/user/user.service";
+import {AppUser} from "../domain/AppUser";
 
 @Component({
   selector: 'app-login',
@@ -12,9 +14,10 @@ import {MatSnackBar, MatStepper} from '@angular/material';
 export class LoginComponent implements OnInit {
   userLoginControl: FormGroup;
   userRegisterControl: FormGroup;
+  appUser: AppUser ;
 
 
-  constructor(private authService: AuthenticationService, private router: Router, public snackBar: MatSnackBar) {}
+  constructor(private authService: AuthenticationService, private router: Router, public snackBar: MatSnackBar,private userService: UserService) {}
   ngOnInit() {
    this.buildFormLogin();
    this.buildFormRegister();
@@ -38,7 +41,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.userLoginControl.value).subscribe(resp => {
         const jwtToken = resp.headers.get('Authorization');
         this.authService.saveToken(jwtToken);
-        this.router.navigateByUrl('/admin-game'); //fixme redirect normal user to quizz list
+        this.userService.theUser$.subscribe(user => {
+          if(this.userService.isAdmin(user)){
+            this.router.navigateByUrl('/admin-game');
+          }
+          else {
+            this.router.navigateByUrl('/game-list')
+          }
+        });
       },
       error => {
         this.snackBar.open('Identifiants incorrects ', error.message, {
