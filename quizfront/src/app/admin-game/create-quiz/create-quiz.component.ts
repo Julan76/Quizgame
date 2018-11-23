@@ -12,7 +12,7 @@ import {MatSnackBar} from "@angular/material";
 export class CreateQuizComponent implements OnInit {
   quiz: Quiz = new Quiz();
   quizQuestions: Question[];
-  allQuestions: Question[] = [] ;
+  allQuestions: Question[];
   constructor( private question: QuestionService,private snackBar:MatSnackBar) { }
 
   ngOnInit() {

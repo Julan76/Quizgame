@@ -22,7 +22,7 @@ export class CreateQuestionsComponent implements OnInit {
   }
 
   addAnswer(){
-    if(!this.possibleAnswer.label || this.possibleAnswer.label.length==0){
+    if(!this.possibleAnswer.getlabel || this.possibleAnswer.getlabel.length==0){
       this.snackBar.open('', 'Vous devez écrire une réponse possible pour en ajouter', {
         duration: 5000,
       });
@@ -49,8 +49,8 @@ export class CreateQuestionsComponent implements OnInit {
         });
       }
       else{
-        this.question.rightAnswer=this.rightAnswer;
-        this.question.answerList=this.answerList;
+        this.question.getrightAnswer=this.rightAnswer;
+        this.question.getanswerList=this.answerList;
         this.questionService.saveQuestion(this.question).subscribe();
       }
     }

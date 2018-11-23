@@ -2,41 +2,41 @@ import {Question} from "./Question";
 
 
 export class Quiz   {
-  private _duration: number;
-  private _name: string;
-  private _description: string;
-  private _questionList: Question[];
+  private duration: number;
+  private name: string;
+  private description: string;
+  private questionList: Question[];
 
 
-  get duration(): number {
-    return this._duration;
+  get getduration(): number {
+    return this.duration;
   }
 
-  set duration(value: number) {
-    this._duration = value;
+  set getduration(value: number) {
+    this.duration = value;
   }
 
-  get name(): string {
-    return this._name;
+  get getname(): string {
+    return this.name;
   }
 
-  set name(value: string) {
-    this._name = value;
+  set getname(value: string) {
+    this.name = value;
   }
 
-  get description(): string {
-    return this._description;
+  get getdescription(): string {
+    return this.description;
   }
 
-  set description(value: string) {
-    this._description = value;
+  set getdescription(value: string) {
+    this.description = value;
   }
 
-  get questionList(): Question[] {
-    return this._questionList;
+  get getquestionList(): Question[] {
+    return this.questionList;
   }
 
-  set questionList(value: Question[]) {
-    this._questionList = value;
+  set getquestionList(value: Question[]) {
+    this.questionList = value;
   }
 }

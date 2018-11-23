@@ -1,12 +1,12 @@
 <form  (ngSubmit)="submitQuizForm()" #questionForm="ngForm">
   <mat-form-field class="example-container">
-    <input matInput placeholder="nom" required [(ngModel)]="quiz.getName" name="name" >
+    <input matInput placeholder="nom" required [(ngModel)]="quiz.getname" name="name" >
   </mat-form-field >
   <mat-form-field class="example-container">
-    <input matInput placeholder="description" required [(ngModel)]="quiz.getDescription" name="description" >
+    <input matInput placeholder="description" required [(ngModel)]="quiz.getdescription" name="description" >
   </mat-form-field >
   <mat-form-field class="example-container">
-    <input matInput placeholder="durée en minutes" type="number" required  [(ngModel)]="quiz.getDuration" name="duration">
+    <input matInput placeholder="durée en minutes" type="number" required  [(ngModel)]="quiz.getduration" name="duration">
   </mat-form-field >
   <mat-grid-list cols=4 rowHeight="40px">
     <mat-grid-tile
@@ -19,26 +19,11 @@
       [rowspan]=1 >
       Questions choisies pour le quiz
     </mat-grid-tile>
-    <mat-grid-tile
-      [colspan]=2
-      [rowspan]=3>
-      <mat-list role="list">
-        <mat-list-item *ngFor="let aQuestion of allQuestions" role="listitem">{{aQuestion.label}}</mat-list-item>
-        <mat-list-item  role="listitem">nooo</mat-list-item>
-    {{watch}}
-      </mat-list>
-    </mat-grid-tile>
-    <mat-grid-tile
-      [colspan]=2
-      [rowspan]=3 >
-      <mat-list role="list">
-        <mat-list-item role="listitem">Item 1</mat-list-item>
-        <mat-list-item role="listitem">Item 2</mat-list-item>
-        <mat-list-item role="listitem">Item 3</mat-list-item>
-      </mat-list>
-    </mat-grid-tile>
-  </mat-grid-list>
 
+  </mat-grid-list>
+  <mat-list role="list">
+    <mat-list-item *ngFor="let aQuestion of allQuestions" role="listitem">{{aQuestion.label}}</mat-list-item>
+  </mat-list>
 
   <br>
   <button  mat-raised-button color="primary">Créer</button>

@@ -15,6 +15,5 @@ public class Answer {
     @SequenceGenerator(name = "answer", sequenceName = "answer_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "answer")
     private Long id;
-    @JsonProperty("_label")
     private String label;
 }
