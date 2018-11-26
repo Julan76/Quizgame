@@ -40,8 +40,7 @@ public class QuestionController {
         );
     return questionRepository.save(question);
     }
-
-    @GetMapping("/questions")
+       @GetMapping("/questions")
     public List<Question> retrieveQuestions(){
         return questionRepository.findAll();
     }
