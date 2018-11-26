@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,42 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'quizfront';
+
+  /*
+
+  message: string ='';
+  private serverUrl = 'http://localhost:8080/socket';
+  title = 'WebSockets chat';
+  private stompClient;
+
+  showConversation: boolean = false;
+  greetings: string[] = [];
+
+
+  constructor(){
+    this.initializeWebSocketConnection();
+  }
+
+  initializeWebSocketConnection(){
+    let ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+    this.stompClient.connect({}, function(frame) {
+      that.stompClient.subscribe("/chat", (message) => {
+        console.log(message);
+        that.showGreeting(message.body);
+      });
+    });
+  }
+
+  sendMessage(essage){
+    this.stompClient.send("/app/send/message" , {}, this.message);
+  }
+
+
+  showGreeting(message) {
+    this.showConversation = true;
+    this.greetings.push(message)
+  }
+ */
 }

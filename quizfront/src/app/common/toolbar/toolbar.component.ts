@@ -3,6 +3,8 @@ import {UserService} from "../../service/user/user.service";
 import {AppUser} from "../../domain/AppUser";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../service/authentication/authentication.service";
+import {Stomp} from "@stomp/stompjs";
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,9 +16,12 @@ export class ToolbarComponent implements OnInit {
   private subscription;
   isAdmin: boolean=false;
 
+
   constructor(private userService: UserService,private router: Router,private authenticationService : AuthenticationService) {
     this.checkUser();
   }
+
+
 
   ngOnInit() {
     if(this.authenticationService.isLogged()){

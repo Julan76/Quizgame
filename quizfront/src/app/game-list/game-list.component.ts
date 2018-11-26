@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {QuizService} from "../service/serviceBusiness/quiz.service";
 import {Quiz} from "../domain/Quiz";
 import {MatSnackBar} from "@angular/material";
+import {Router} from "@angular/router";
+import {UserService} from "../service/user/user.service";
+import {AppUser} from "../domain/AppUser";
+import {AuthenticationService} from "../service/authentication/authentication.service";
 
 @Component({
   selector: 'app-game-list',
@@ -10,12 +14,37 @@ import {MatSnackBar} from "@angular/material";
 })
 export class GameListComponent implements OnInit {
   allQuiz: Quiz[]=[];
-  constructor(private quizService: QuizService, private snackBar:MatSnackBar) { }
+  appUser: AppUser ;
+  isAdmin: boolean=false;
+
+  constructor(private quizService: QuizService, private snackBar:MatSnackBar,private router : Router, public userService : UserService,private authenticationService : AuthenticationService) {
+    this.checkUser();
+
+  }
 
   ngOnInit() {
+    if(this.authenticationService.isLogged()){
+      this.appUser= this.userService.getLoggedUser(this.authenticationService.getToken());
+      this.isAdmin=this.userService.isAdmin(this.appUser);
+    }
+    else {
+      this.checkUser();
+    }
     this.loadQuizs();
   }
 
+  checkUser(){
+    this.userService.theUser$.subscribe(
+      user => {
+        this.appUser= user;
+        this.isAdmin=this.userService.isAdmin(user);
+      }
+    )
+  }
+
+  launchQuiz(aQuiz): void {
+     this.router.navigate(['/register-play',this.appUser.firstName+'¤¤'+aQuiz.name+'¤¤'+new Date()])
+  }
   loadQuizs(): void {
     this.quizService.retriveQuizs().subscribe(quizs=> {
       this.allQuiz=quizs;

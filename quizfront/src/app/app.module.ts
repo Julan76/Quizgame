@@ -15,6 +15,7 @@ import {JwtValidityInterceptorService} from "./service/interceptor/jwt-validity-
 import {CreateQuestionsComponent} from './admin-game/create-questions/create-questions.component';
 import {CreateQuizComponent} from './admin-game/create-quiz/create-quiz.component';
 import {FilterPipe} from "./common/filter/filterPipe";
+import { RegisterPlayComponent } from './register-play/register-play.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {FilterPipe} from "./common/filter/filterPipe";
     ToolbarComponent,
     CreateQuestionsComponent,
     CreateQuizComponent,
-    FilterPipe
+    FilterPipe,
+    RegisterPlayComponent
   ],
   imports: [
     BrowserModule, MyOwnCustomMaterialModuleModule, HttpClientModule, FormsModule, AppRoutingModule, ReactiveFormsModule
