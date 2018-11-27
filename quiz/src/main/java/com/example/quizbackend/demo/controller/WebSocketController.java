@@ -16,8 +16,6 @@ public class WebSocketController {
 //new SimpleDateFormat("HH:mm:ss").format(new Date())+"- "+
     @MessageMapping("send/register")
     public void onReceivedMessage( String message) {
-        System.out.println("mememe");
-        System.out.println(message);
         this.template.convertAndSend("/register-play", message);
     }
 }

@@ -11,10 +11,14 @@
     <button mat-button>Administrer</button>
   </span>
   <span style="cursor: pointer" *ngIf="appUser">
+    <mat-icon mat-button [matMenuTriggerFor]="notif" *ngIf="notifications.length>0" matBadge="{{notifications.length}}" matBadgeColor="accent">chat</mat-icon>
      <mat-icon mat-button [matMenuTriggerFor]="menu">person</mat-icon>
-    <mat-menu #menu="matMenu">
+     <mat-menu #menu="matMenu">
     <button mat-menu-item>{{appUser.getMail}}</button>
     <button mat-menu-item (click)="logout()">déconnexion</button>
+   </mat-menu>
+    <mat-menu #notif="matMenu">
+    <button (click)="joinQuiz(notif)" *ngFor="let notif of notifications" mat-menu-item>{{notif.user}} a lancé {{notif.quizz}}</button>
    </mat-menu>
   </span>
 </mat-toolbar>

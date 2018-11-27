@@ -13,7 +13,10 @@ export class WebsocketConnectionService {
 
   constructor() {
     this.initializeWebSocketConnection();
+  }
 
+  public getStompClient() : CompatClient {
+    return this.stompClient;
   }
   initializeWebSocketConnection (): CompatClient{
     let ws = new SockJS(this.serverUrl);

@@ -17,25 +17,17 @@ export class RegisterPlayComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private websocket: WebsocketConnectionService) {
     let that = this;
-    this.stompClient = this.websocket.initializeWebSocketConnection();
-    this.stompClient.connect({}, (frame) => {
-       return this.stompClient.subscribe("/register-play", (message) => {
-       console.log(message);
-      });
-      });
+    this.stompClient=this.websocket.getStompClient();
   }
 
   ngOnInit() {
     this.params= this.activatedRoute.snapshot.params['userQuizAndDate'];
+    this.websocket.sendMessage(this.params)
   }
 
-
-
- sendMessage(){
-    this.websocket.sendMessage(this.params)
- //  this.stompClient.send("/app/send/register" , {}, this.params);
- }
-
+  sendMessage(message){
+    this.stompClient.send("/app/send/register" , {}, message);
+  }
 
 
 

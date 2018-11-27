@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "../../service/authentication/authentication.service";
 import {Stomp} from "@stomp/stompjs";
 import * as SockJS from 'sockjs-client';
+import {WebsocketConnectionService} from "../../service/socket/websocket-connection.service";
+import {Notification} from "../../domain/Notification";
 
 @Component({
   selector: 'app-toolbar',
@@ -15,13 +17,19 @@ export class ToolbarComponent implements OnInit {
   appUser: AppUser ;
   private subscription;
   isAdmin: boolean=false;
+  private stompClient;
+  notifications: Notification[] = [];
 
-
-  constructor(private userService: UserService,private router: Router,private authenticationService : AuthenticationService) {
+  constructor(private userService: UserService,private router: Router,private authenticationService : AuthenticationService,private websocket: WebsocketConnectionService) {
     this.checkUser();
+    this.stompClient=this.websocket.getStompClient();
+
+    this.stompClient.connect({}, (frame) => {
+      return this.stompClient.subscribe("/register-play", (message) => {
+        this.addNotification(message.body);
+      });
+    });
   }
-
-
 
   ngOnInit() {
     if(this.authenticationService.isLogged()){
@@ -32,6 +40,10 @@ export class ToolbarComponent implements OnInit {
       this.checkUser();
     }
   }
+  addNotification(message) {
+   const messageSplited = message.split('¤¤');
+    this.notifications.push(new Notification(messageSplited[0],messageSplited[1],messageSplited[2]));
+  }
   checkUser(){
     this.subscription = this.userService.theUser$.subscribe(
       user => {
@@ -39,6 +51,9 @@ export class ToolbarComponent implements OnInit {
         this.isAdmin=this.userService.isAdmin(user);
       }
     )
+  }
+  joinQuiz(notif) {
+    this.router.navigate(['/register-play/'+notif.concatUrl()])
   }
   redirectToLogin() {
     this.router.navigate(['/login'])
