@@ -1,0 +1,12 @@
+
+.center{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.main-div{
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

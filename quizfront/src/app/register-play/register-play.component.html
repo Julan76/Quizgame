@@ -1,3 +1,27 @@
-<p>
-  register-play works!
-</p>
+
+  <mat-list-item class="center main-div">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div ></div>
+        <mat-card-title>{{aQuiz.name}}</mat-card-title>
+        <mat-card-subtitle>{{aQuiz.duration}} minute<span *ngIf="aQuiz.duration>1">s </span></mat-card-subtitle>
+      </mat-card-header>
+      <!--  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+      <mat-card-content>
+        <p>
+          {{aQuiz.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button color="primary" (click)="launchQuiz(aQuiz)" mat-button>PLAY</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </mat-list-item>
+
+
+<mat-list>
+  <mat-list-item> Pepper </mat-list-item>
+  <mat-list-item> Salt </mat-list-item>
+  <mat-list-item> Paprika </mat-list-item>
+</mat-list>

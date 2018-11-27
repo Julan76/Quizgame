@@ -43,7 +43,7 @@ export class GameListComponent implements OnInit {
   }
 
   launchQuiz(aQuiz): void {
-     this.router.navigate(['/register-play',this.appUser.firstName+'¤¤'+aQuiz.name+'¤¤'+new Date()])
+     this.router.navigate(['/register-play',this.appUser.firstName+'¤¤'+aQuiz.id+'¤¤'+aQuiz.name+'¤¤'+new Date()])
   }
   loadQuizs(): void {
     this.quizService.retriveQuizs().subscribe(quizs=> {

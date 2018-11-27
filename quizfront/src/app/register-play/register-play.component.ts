@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Stomp} from "@stomp/stompjs";
-import * as SockJS from 'sockjs-client';
 import {WebsocketConnectionService} from "../service/socket/websocket-connection.service";
 
 
@@ -21,8 +19,9 @@ export class RegisterPlayComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.params= this.activatedRoute.snapshot.params['userQuizAndDate'];
-    this.websocket.sendMessage(this.params)
+    this.params= this.activatedRoute.snapshot.params['userQuizIdNameAndDate'];
+    console.log(this.params);
+    this.websocket.sendMessage(this.params);
   }
 
   sendMessage(message){

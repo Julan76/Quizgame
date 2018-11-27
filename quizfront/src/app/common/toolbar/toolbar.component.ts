@@ -42,7 +42,7 @@ export class ToolbarComponent implements OnInit {
   }
   addNotification(message) {
    const messageSplited = message.split('¤¤');
-    this.notifications.push(new Notification(messageSplited[0],messageSplited[1],messageSplited[2]));
+    this.notifications.push(new Notification(messageSplited[0],messageSplited[1],messageSplited[2],messageSplited[3]));
   }
   checkUser(){
     this.subscription = this.userService.theUser$.subscribe(

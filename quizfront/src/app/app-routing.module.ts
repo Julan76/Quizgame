@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'game-list', component: GameListComponent},
   { path: 'admin-game', component: AdminGameComponent},
-  { path: 'register-play/:userQuizAndDate', component: RegisterPlayComponent}
+  { path: 'register-play/:userQuizIdNameAndDate', component: RegisterPlayComponent}
 ];
 
 @NgModule({

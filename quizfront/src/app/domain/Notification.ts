@@ -1,14 +1,17 @@
 export class Notification {
   public user: string;
-  public quizz : string;
+  public quizzId : string;
+  public quizzName : string;
   public date : string;
 
-  constructor(user: string, quizz: string, date: string) {
+  constructor(user: string, quizzId: string, quizzName: string, date: string) {
     this.user = user;
-    this.quizz = quizz;
+    this.quizzId = quizzId;
+    this.quizzName = quizzName;
     this.date = date;
   }
+
   concatUrl() : string {
-    return this.user+'¤¤'+this.quizz+'¤¤'+this.date;
+    return this.user+'¤¤'+this.quizzId+'¤¤'+this.quizzName+'¤¤'+this.date;
   }
 }

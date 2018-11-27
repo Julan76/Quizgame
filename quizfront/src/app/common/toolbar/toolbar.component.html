@@ -18,7 +18,7 @@
     <button mat-menu-item (click)="logout()">déconnexion</button>
    </mat-menu>
     <mat-menu #notif="matMenu">
-    <button (click)="joinQuiz(notif)" *ngFor="let notif of notifications" mat-menu-item>{{notif.user}} a lancé {{notif.quizz}}</button>
+    <button (click)="joinQuiz(notif)" *ngFor="let notif of notifications" mat-menu-item>{{notif.user}} a lancé {{notif.quizzName}}</button>
    </mat-menu>
   </span>
 </mat-toolbar>
