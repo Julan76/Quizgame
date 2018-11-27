@@ -32,8 +32,10 @@ export class WebsocketConnectionService {
     //});
   }
 
-  sendMessage(message){
+  sendMessageRegister(message){
     this.stompClient.send("/app/send/register" , {}, message);
   }
-
+  sendMessageJoin(roomId,message) {
+    this.stompClient.send("/app/send/join/"+roomId , {}, message);
+  }
 }

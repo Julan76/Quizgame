@@ -34,7 +34,7 @@ export class AppComponent {
     });
   }
 
-  sendMessage(essage){
+  sendMessageRegister(essage){
     this.stompClient.send("/app/send/message" , {}, this.message);
   }
 

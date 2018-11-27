@@ -1,5 +1,6 @@
 package com.example.quizbackend.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class Question {
     @NotEmpty
     private List<Answer> answerList;
     @OneToOne
+    @JsonIgnore
     private Answer rightAnswer;
 
 }

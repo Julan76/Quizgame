@@ -1,7 +1,6 @@
 <mat-toolbar class="mat-elevation-z6" color="primary">
   <span>Quizz App</span>
 
-  <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
 
 
@@ -14,7 +13,7 @@
     <mat-icon mat-button [matMenuTriggerFor]="notif" *ngIf="notifications.length>0" matBadge="{{notifications.length}}" matBadgeColor="accent">chat</mat-icon>
      <mat-icon mat-button [matMenuTriggerFor]="menu">person</mat-icon>
      <mat-menu #menu="matMenu">
-    <button mat-menu-item>{{appUser.getMail}}</button>
+    <button mat-menu-item>{{appUser.mail}}</button>
     <button mat-menu-item (click)="logout()">déconnexion</button>
    </mat-menu>
     <mat-menu #notif="matMenu">

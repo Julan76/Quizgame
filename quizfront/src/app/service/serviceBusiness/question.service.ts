@@ -32,7 +32,7 @@ export class QuestionService {
     });
   }
   errorMessage(error) {
-    this.snackBar.open('Erreur durant la sauvegarde ! ', error.error.status+' '+error.error.message+'!', {
+    this.snackBar.open('Une erreur est survenue ', error.error.status+' '+error.error.message+'!', {
       duration: 5000,
     });
   }

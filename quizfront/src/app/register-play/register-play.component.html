@@ -1,10 +1,10 @@
-
+{{debug}}
   <mat-list-item class="center main-div">
-    <mat-card class="example-card">
+    <mat-card *ngIf="aQuiz" class="example-card">
       <mat-card-header>
         <div ></div>
         <mat-card-title>{{aQuiz.name}}</mat-card-title>
-        <mat-card-subtitle>{{aQuiz.duration}} minute<span *ngIf="aQuiz.duration>1">s </span></mat-card-subtitle>
+        <mat-card-subtitle >{{aQuiz.duration}} minute<span *ngIf="aQuiz.duration>1">s </span></mat-card-subtitle>
       </mat-card-header>
       <!--  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
       <mat-card-content>
@@ -21,7 +21,6 @@
 
 
 <mat-list>
-  <mat-list-item> Pepper </mat-list-item>
-  <mat-list-item> Salt </mat-list-item>
-  <mat-list-item> Paprika </mat-list-item>
+  <mat-list-item *ngFor="let user of userList">{{user}}</mat-list-item>
+
 </mat-list>
