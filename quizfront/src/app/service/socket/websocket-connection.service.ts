@@ -18,18 +18,11 @@ export class WebsocketConnectionService {
   public getStompClient() : CompatClient {
     return this.stompClient;
   }
-  initializeWebSocketConnection (): CompatClient{
+  initializeWebSocketConnection (): CompatClient {
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
     return this.stompClient;
-
-
-  //  this.stompClient.connect({}, (frame) => {
-    //  return this.stompClient.subscribe("/register-play", (message) => {
-     //   console.log(message);
-      //});
-    //});
   }
 
   sendMessageRegister(message){

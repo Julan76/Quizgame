@@ -53,7 +53,9 @@ export class ToolbarComponent implements OnInit {
     )
   }
   joinQuiz(notif) {
-  //  this.websocket.sendMessageJoin(notif.concatUrl(),this.appUser.firstName+ ' '+this.appUser.lastName);
+    this.websocket.sendMessageJoin(notif.concatUrl(),this.appUser.firstName+ ' '+this.appUser.lastName); //fixme add user to table and refresh only when subscribe receives datas
+
+    //this.websocket.sendMessageRegister(notif.concatUrl());
     this.router.navigate(['/register-play/'+notif.concatUrl()])
   }
   redirectToLogin() {

@@ -4,6 +4,8 @@ import {WebsocketConnectionService} from "../service/socket/websocket-connection
 import {QuizService} from "../service/serviceBusiness/quiz.service";
 import {Quiz} from "../domain/Quiz";
 import {MatSnackBar} from "@angular/material";
+import {CompatClient, Stomp} from "@stomp/stompjs";
+import * as SockJS from 'sockjs-client'
 
 
 @Component({
@@ -16,21 +18,25 @@ export class RegisterPlayComponent implements OnInit {
   private stompClient;
   public aQuiz : Quiz;
   userList : string []= [];
-
+  private serverUrl = 'http://localhost:8080/socket';
 
   constructor(private activatedRoute: ActivatedRoute, private websocket: WebsocketConnectionService,private quizService : QuizService,private snackBar: MatSnackBar ) {
     this.params= this.activatedRoute.snapshot.params['userQuizIdNameAndDate'];
-    this.stompClient=this.websocket.getStompClient();
+    this.initializeWebSocketConnection(this.params);
 
+  }
+  initializeWebSocketConnection (paramsUrl):  void {
+    let ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
     this.stompClient.connect({}, (frame) => {
-      return this.stompClient.subscribe("/join/"+this.params, (message) => {
+      this.stompClient.subscribe("/join/"+paramsUrl, (message) => {
         this.addJoinedUser(message.body);
       });
     });
   }
 
+
   ngOnInit() {
-    this.websocket.sendMessageRegister(this.params);  //fixme avoid sending this message at each loading of the view MOVE IT MAYBE ??
     this.quizService.findQuizById(this.params.split('¤¤')[1]).subscribe(quiz=> {
         this.aQuiz=quiz;
       },

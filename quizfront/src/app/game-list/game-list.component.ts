@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {UserService} from "../service/user/user.service";
 import {AppUser} from "../domain/AppUser";
 import {AuthenticationService} from "../service/authentication/authentication.service";
+import {WebsocketConnectionService} from "../service/socket/websocket-connection.service";
 
 @Component({
   selector: 'app-game-list',
@@ -17,7 +18,8 @@ export class GameListComponent implements OnInit {
   appUser: AppUser ;
   isAdmin: boolean=false;
 
-  constructor(private quizService: QuizService, private snackBar:MatSnackBar,private router : Router, public userService : UserService,private authenticationService : AuthenticationService) {
+  constructor(private quizService: QuizService, private snackBar:MatSnackBar,private router : Router, public userService : UserService,private authenticationService : AuthenticationService,
+              private websocket : WebsocketConnectionService) {
     this.checkUser();
 
   }
@@ -43,7 +45,9 @@ export class GameListComponent implements OnInit {
   }
 
   launchQuiz(aQuiz): void {
-     this.router.navigate(['/register-play',this.appUser.firstName+'¤¤'+aQuiz.id+'¤¤'+aQuiz.name+'¤¤'+new Date()])
+    let urlQuiz= this.appUser.firstName+'¤¤'+aQuiz.id+'¤¤'+aQuiz.name+'¤¤'+new Date();
+    this.websocket.sendMessageRegister(urlQuiz);
+     this.router.navigate(['/register-play',urlQuiz])
   }
   loadQuizs(): void {
     this.quizService.retriveQuizs().subscribe(quizs=> {
