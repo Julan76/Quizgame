@@ -5,6 +5,7 @@ import {catchError, tap} from "rxjs/operators";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material";
 import {Quiz} from "../../domain/Quiz";
+import {Player} from "../../domain/Player";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,12 @@ export class QuizService {
     return this.http.get<Quiz>(this.host+'/quiz/'+id,this.httpOptions).pipe(
       catchError(this.handleError<Quiz>('quiz'))
     )
+  }
+  findQuizzPlayers(id:string, date : string): Observable<Player[]>{
+    return this.http.get<Player[]>(this.host+'/quiz/players/'+id+'/'+date,this.httpOptions).pipe(
+      catchError(this.handleError<Player[]>('quiz'))
+    )
+
   }
   successMessage(){
     this.snackBar.open('Sauvegarde effectuée ! ', 'Bien joué !', {
