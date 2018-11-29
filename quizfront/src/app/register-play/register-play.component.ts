@@ -8,6 +8,9 @@ import {CompatClient, Stomp} from "@stomp/stompjs";
 import * as SockJS from 'sockjs-client'
 import {Player} from "../domain/Player";
 import {timer} from "rxjs";
+import {UserService} from "../service/user/user.service";
+import {AuthenticationService} from "../service/authentication/authentication.service";
+import {AppUser} from "../domain/AppUser";
 
 
 @Component({
@@ -20,14 +23,16 @@ export class RegisterPlayComponent implements OnInit {
   private stompClient;
   public aQuiz : Quiz;
   players : Player[]=[];
-  userList : string []= [];
   private timer : Date ;
   distance : number;
   private my_timer;
+  appUser: AppUser ;
+
+  private canPlay: string="false";
 
   private serverUrl = 'http://localhost:8080/socket';
 
-  constructor(private activatedRoute: ActivatedRoute, private websocket: WebsocketConnectionService,private quizService : QuizService,private snackBar: MatSnackBar ) {
+  constructor(private activatedRoute: ActivatedRoute, private websocket: WebsocketConnectionService,private quizService : QuizService,public userService : UserService,private authenticationService : AuthenticationService, private snackBar: MatSnackBar ) {
     this.params= this.activatedRoute.snapshot.params['userQuizIdNameAndDate'];
     this.initializeWebSocketConnection(this.params);
     this.findQuizPlayers();
@@ -37,6 +42,22 @@ export class RegisterPlayComponent implements OnInit {
       this.timer= new Date( this.params.split('¤¤')[3]);
       this.timer.setMinutes(this.timer.getMinutes()+1);
       this.distance = Math.floor((this.timer.getTime() - new Date().getTime())/1000);
+      if(this.distance<0) {
+       if(!this.players.find(player => player.mail===this.appUser.mail)){
+         this.canPlay="eliminated"
+       }
+       else{
+         let dateDone = new Date();
+       //  dateDone.setMinutes(dateDone.getMinutes()+this.aQuiz.duration);
+        this.timer.setMinutes(this.timer.getMinutes()+this.aQuiz.duration);
+         if(dateDone> this.timer){
+           this.canPlay="done";
+         }
+         else {
+           this.canPlay="true";
+         }
+       }
+      }
     })
   }
   initializeWebSocketConnection (paramsUrl):  void {
@@ -60,6 +81,12 @@ export class RegisterPlayComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.authenticationService.isLogged()){
+      this.appUser= this.userService.getLoggedUser(this.authenticationService.getToken());
+    }
+    else {
+      this.checkUser();
+    }
     this.quizService.findQuizById(this.params.split('¤¤')[1]).subscribe(quiz=> {
         this.aQuiz=quiz;
       },
@@ -70,9 +97,14 @@ export class RegisterPlayComponent implements OnInit {
       });
     this.findQuizPlayers();
   }
-  addJoinedUser (message) {
-    this.userList.push(message)
+  checkUser(){
+    this.userService.theUser$.subscribe(
+      user => {
+        this.appUser= user;
+      }
+    )
   }
+
   ngOnDestroy() {
     this.my_timer.unsubscribe();
   }

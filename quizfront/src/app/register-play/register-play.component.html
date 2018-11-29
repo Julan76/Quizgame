@@ -2,16 +2,28 @@
 
     <mat-card *ngIf="aQuiz" class="example-card">
       <mat-card-header>
-        <div>
+        <div *ngIf="distance>0">
           Ce jeu commence dans : {{ distance }} s
+        </div>
+        <div *ngIf="distance<0">
+          Jeu commencé !
         </div>
         <mat-card-title>{{aQuiz.name}}</mat-card-title>
         <mat-card-subtitle >{{aQuiz.duration}} minute<span *ngIf="aQuiz.duration>1">s </span></mat-card-subtitle>
       </mat-card-header>
       <!--  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
       <mat-card-content>
-        <p>
+        <p *ngIf="canPlay=='false'">
           {{aQuiz.description}}
+        </p>
+        <p *ngIf="canPlay=='eliminated'">
+          Too late !
+        </p>
+        <p *ngIf="canPlay=='done'">
+            This game is over !
+        </p>
+        <p *ngIf="canPlay=='true'">
+          launching...
         </p>
       </mat-card-content>
       <mat-card-actions>
