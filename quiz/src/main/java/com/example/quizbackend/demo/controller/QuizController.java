@@ -18,7 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class QuizController {
 
-    QuizRepository quizRepository;
+    private QuizRepository quizRepository;
     private GameStartedRepository gameStartedRepository;
 
 

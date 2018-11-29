@@ -46,6 +46,7 @@ export class GameListComponent implements OnInit {
 
   launchQuiz(aQuiz): void {
     let urlQuiz= this.appUser.firstName+'¤¤'+aQuiz.id+'¤¤'+aQuiz.name+'¤¤'+new Date();
+
     this.websocket.sendMessageRegister(urlQuiz+'¤¤'+this.appUser.mail);
      this.router.navigate(['/register-play',urlQuiz])
   }

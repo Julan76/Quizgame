@@ -16,8 +16,11 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,7 @@ public class WebSocketController {
     private QuizRepository quizRepository;
     private AppUserRepository appUserRepository;
     private PlayerRepository playerRepository;
+
 
     @MessageMapping("send/register")
     public void onReceivedMessageRegister( String userQuizIdNameAndDate) {
@@ -53,6 +57,7 @@ public class WebSocketController {
     public void onReceivedMessagePlay( String message, @DestinationVariable String roomId) {
         String [] roomIdUserQuizIdNameAndDate= roomId.split("¤¤");
         String [] userInfos= message.split("¤¤");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd yyyy HH:mm:ss", Locale.US);
 
         Optional<GameStarted> gameStarted = gameStartedRepository.findByQuizzIdAndLaunchDate(Long.valueOf(roomIdUserQuizIdNameAndDate[1]),roomIdUserQuizIdNameAndDate[3]);
        List<Player> players=  gameStarted.get().getPlayers().stream().filter(player ->
@@ -61,9 +66,14 @@ public class WebSocketController {
 
         if(players.isEmpty()){
             AppUser appUser = appUserRepository.findByUsername(userInfos[2]);
-            Player player= playerRepository.saveAndFlush(new Player(appUser.getUsername(),appUser.getFirstname(),appUser.getLastname()));
-            gameStarted.get().getPlayers().add(player);
-            gameStartedRepository.save(gameStarted.get());
+            if(LocalDateTime.now().isBefore(LocalDateTime.parse(gameStarted.get().getLaunchDate().split("GMT")[0].trim(),formatter).plusMinutes(1L))) {
+                Player player= playerRepository.saveAndFlush(new Player(appUser.getUsername(),appUser.getFirstname(),appUser.getLastname()));
+                gameStarted.get().getPlayers().add(player);
+                gameStartedRepository.save(gameStarted.get());
+            }
+            else {
+                throw new RuntimeException("too late ");
+            }
         }
 
         this.template.convertAndSend("/join/"+roomId, message);

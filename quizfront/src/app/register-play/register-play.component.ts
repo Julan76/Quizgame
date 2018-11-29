@@ -7,6 +7,7 @@ import {MatSnackBar} from "@angular/material";
 import {CompatClient, Stomp} from "@stomp/stompjs";
 import * as SockJS from 'sockjs-client'
 import {Player} from "../domain/Player";
+import {timer} from "rxjs";
 
 
 @Component({
@@ -20,12 +21,23 @@ export class RegisterPlayComponent implements OnInit {
   public aQuiz : Quiz;
   players : Player[]=[];
   userList : string []= [];
+  private timer : Date ;
+  distance : number;
+  private my_timer;
+
   private serverUrl = 'http://localhost:8080/socket';
 
   constructor(private activatedRoute: ActivatedRoute, private websocket: WebsocketConnectionService,private quizService : QuizService,private snackBar: MatSnackBar ) {
     this.params= this.activatedRoute.snapshot.params['userQuizIdNameAndDate'];
     this.initializeWebSocketConnection(this.params);
     this.findQuizPlayers();
+
+    this.my_timer = timer(1000,1000);
+    this.my_timer.subscribe(t=> {
+      this.timer= new Date( this.params.split('¤¤')[3]);
+      this.timer.setMinutes(this.timer.getMinutes()+1);
+      this.distance = Math.floor((this.timer.getTime() - new Date().getTime())/1000);
+    })
   }
   initializeWebSocketConnection (paramsUrl):  void {
     let ws = new SockJS(this.serverUrl);
@@ -56,9 +68,12 @@ export class RegisterPlayComponent implements OnInit {
           duration : 5000
         })
       });
+    this.findQuizPlayers();
   }
   addJoinedUser (message) {
     this.userList.push(message)
   }
-
+  ngOnDestroy() {
+    this.my_timer.unsubscribe();
+  }
 }
