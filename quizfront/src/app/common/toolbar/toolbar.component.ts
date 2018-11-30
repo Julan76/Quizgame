@@ -60,6 +60,9 @@ export class ToolbarComponent implements OnInit {
   redirectToLogin() {
     this.router.navigate(['/login'])
   }
+  redirectToHome() {
+    this.router.navigate(['/game-list'])
+  }
   logout(){
     this.userService.logout();
     this.appUser=null;

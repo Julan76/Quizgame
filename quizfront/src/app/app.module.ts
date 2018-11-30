@@ -16,6 +16,7 @@ import {CreateQuestionsComponent} from './admin-game/create-questions/create-que
 import {CreateQuizComponent} from './admin-game/create-quiz/create-quiz.component';
 import {FilterPipe} from "./common/filter/filterPipe";
 import { RegisterPlayComponent } from './register-play/register-play.component';
+import { PlayGameComponent } from './play-game/play-game.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegisterPlayComponent } from './register-play/register-play.component';
     CreateQuestionsComponent,
     CreateQuizComponent,
     FilterPipe,
-    RegisterPlayComponent
+    RegisterPlayComponent,
+    PlayGameComponent
   ],
   imports: [
     BrowserModule, MyOwnCustomMaterialModuleModule, HttpClientModule, FormsModule, AppRoutingModule, ReactiveFormsModule

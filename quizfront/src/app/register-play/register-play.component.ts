@@ -27,8 +27,9 @@ export class RegisterPlayComponent implements OnInit {
   distance : number;
   private my_timer;
   appUser: AppUser ;
-
-  private canPlay: string="false";
+  canPlay: string="false";
+  dateDone : Date;
+  timeLeft : number;
 
   private serverUrl = 'http://localhost:8080/socket';
 
@@ -42,18 +43,21 @@ export class RegisterPlayComponent implements OnInit {
       this.timer= new Date( this.params.split('¤¤')[3]);
       this.timer.setMinutes(this.timer.getMinutes()+1);
       this.distance = Math.floor((this.timer.getTime() - new Date().getTime())/1000);
+      if(this.distance==55){
+        this.findQuizPlayers();
+      }
       if(this.distance<0) {
        if(!this.players.find(player => player.mail===this.appUser.mail)){
          this.canPlay="eliminated"
        }
        else{
-         let dateDone = new Date();
-       //  dateDone.setMinutes(dateDone.getMinutes()+this.aQuiz.duration);
+         this.dateDone = new Date();
         this.timer.setMinutes(this.timer.getMinutes()+this.aQuiz.duration);
-         if(dateDone> this.timer){
+         if(this.dateDone> this.timer){
            this.canPlay="done";
          }
          else {
+           this.timeLeft = Math.floor((this.timer.getTime() - new Date().getTime())/1000);
            this.canPlay="true";
          }
        }
@@ -105,7 +109,4 @@ export class RegisterPlayComponent implements OnInit {
     )
   }
 
-  ngOnDestroy() {
-    this.my_timer.unsubscribe();
-  }
 }

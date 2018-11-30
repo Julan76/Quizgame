@@ -5,8 +5,11 @@
         <div *ngIf="distance>0">
           Ce jeu commence dans : {{ distance }} s
         </div>
-        <div *ngIf="distance<0">
+        <div *ngIf="distance<0 && canPlay!='done'">
           Jeu commencé !
+        </div>
+        <div *ngIf="timeLeft>0">
+          Il vous reste {{timeLeft}} s
         </div>
         <mat-card-title>{{aQuiz.name}}</mat-card-title>
         <mat-card-subtitle >{{aQuiz.duration}} minute<span *ngIf="aQuiz.duration>1">s </span></mat-card-subtitle>
@@ -17,17 +20,16 @@
           {{aQuiz.description}}
         </p>
         <p *ngIf="canPlay=='eliminated'">
-          Too late !
+          Trop tard !
         </p>
         <p *ngIf="canPlay=='done'">
-            This game is over !
+            Le jeu est terminé !
         </p>
         <p *ngIf="canPlay=='true'">
-          launching...
+        <app-play-game [game]="aQuiz"></app-play-game>
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button color="primary" (click)="launchQuiz(aQuiz)" mat-button>PLAY</button>
       </mat-card-actions>
     </mat-card>
 
