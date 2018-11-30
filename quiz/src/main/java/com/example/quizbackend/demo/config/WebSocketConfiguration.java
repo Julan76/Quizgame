@@ -20,6 +20,6 @@ public class WebSocketConfiguration  extends AbstractWebSocketMessageBrokerConfi
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app")
-                .enableSimpleBroker("/register-play","/join");
+                .enableSimpleBroker("/register-play","/join","/done");
     }
 }

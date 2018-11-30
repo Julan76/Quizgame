@@ -31,4 +31,8 @@ export class WebsocketConnectionService {
   sendMessageJoin(roomId,message) {
     this.stompClient.send("/app/send/join/"+roomId , {}, message);
   }
+  sendMessageDone(roomId,message){
+    this.stompClient.send("/app/send/done/"+roomId , {}, message);
+
+  }
 }

@@ -21,6 +21,7 @@ import {AppUser} from "../domain/AppUser";
 export class RegisterPlayComponent implements OnInit {
   params : string;
   private stompClient;
+  private stompClient2;
   public aQuiz : Quiz;
   players : Player[]=[];
   private timer : Date ;
@@ -32,6 +33,7 @@ export class RegisterPlayComponent implements OnInit {
   timeLeft : number;
   score : string ;
   subscription ;
+  playerDone : string;
 
   private serverUrl = 'http://localhost:8080/socket';
 
@@ -57,6 +59,7 @@ export class RegisterPlayComponent implements OnInit {
         this.timer.setMinutes(this.timer.getMinutes()+this.aQuiz.duration);
          if(this.dateDone> this.timer){
            this.canPlay="done";
+           this.finish();
          }
          else {
            this.timeLeft = Math.floor((this.timer.getTime() - new Date().getTime())/1000);
@@ -69,9 +72,15 @@ export class RegisterPlayComponent implements OnInit {
   initializeWebSocketConnection (paramsUrl):  void {
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
+    this.stompClient2 = Stomp.over(ws);
     this.stompClient.connect({}, (frame) => {
       this.stompClient.subscribe("/join/"+paramsUrl, (message) => {
           this.findQuizPlayers();
+      });
+    });
+    this.stompClient2.connect({}, (frame) => {
+      this.stompClient2.subscribe("/done/"+paramsUrl, (message) => {
+        this.printDoneMessage(message.body);
       });
     });
   }
@@ -84,6 +93,10 @@ export class RegisterPlayComponent implements OnInit {
           duration : 5000
         })
       });
+  }
+  printDoneMessage(message){
+    this.canPlay='done';
+    this.playerDone = message
   }
 
   ngOnInit() {
@@ -114,6 +127,7 @@ export class RegisterPlayComponent implements OnInit {
     this.quizService.calculateScore(this.aQuiz).subscribe(value => {
       this.score=value;
       this.canPlay='done';
+      this.websocket.sendMessageDone(this.params,this.appUser.firstName+' '+this.appUser.lastName);
       this.subscription.unsubscribe();
     })
   }

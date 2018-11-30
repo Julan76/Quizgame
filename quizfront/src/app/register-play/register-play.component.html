@@ -41,5 +41,6 @@
 
 <span>
   <p *ngFor="let player of players">{{player.firstname}} {{player.lastname}} a rejoint le quizz !</p>
+  <p *ngIf="playerDone">{{playerDone}} a terminé le quizz !</p>
 
 </span>

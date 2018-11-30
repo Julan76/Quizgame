@@ -10,7 +10,6 @@ import {Question} from "../domain/Question";
 })
 export class PlayGameComponent implements OnInit {
   @Input() game : Quiz;
-  @Input() dateDone : Date;
 
   constructor() {
   }

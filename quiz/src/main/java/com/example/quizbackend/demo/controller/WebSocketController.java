@@ -79,4 +79,9 @@ public class WebSocketController {
         this.template.convertAndSend("/join/"+roomId, message);
     }
 
+    @MessageMapping("send/done/{roomId}")
+    public void onReceivedMessageDone( String message, @DestinationVariable String roomId) {
+        this.template.convertAndSend("/done/"+roomId, message);
+    }
+
 }
