@@ -15,4 +15,5 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "answer")
     private Long id;
     private String label;
+
 }

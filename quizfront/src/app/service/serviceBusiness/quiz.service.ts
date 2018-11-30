@@ -23,11 +23,17 @@ export class QuizService {
       tap((question: Question) => this.successMessage()),
       catchError(this.handleError<Question>('quiz')))
   }
+  calculateScore (quiz : Quiz): Observable<string> {
+    return this.http.post(this.host+'/quiz/compute',quiz,{responseType: 'text'}).pipe(
+      tap((ans: string) => this.successMessage()),
+      catchError(this.handleError<string>('quiz')))
+  }
   retriveQuizs(): Observable<Quiz[]> {
     return this.http.get<Quiz[]>(this.host+'/quiz',this.httpOptions).pipe(
       catchError(this.handleError<Quiz[]>('quiz'))
     )
   }
+
   findQuizById(id: string) : Observable<Quiz> {
     return this.http.get<Quiz>(this.host+'/quiz/'+id,this.httpOptions).pipe(
       catchError(this.handleError<Quiz>('quiz'))
@@ -40,7 +46,7 @@ export class QuizService {
 
   }
   successMessage(){
-    this.snackBar.open('Sauvegarde effectuée ! ', 'Bien joué !', {
+    this.snackBar.open('Opération effectuée ! ', 'Bien joué !', {
       duration: 4000,
     });
   }

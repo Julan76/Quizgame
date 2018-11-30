@@ -25,5 +25,7 @@ public class Question {
     @OneToOne
     @JsonIgnore
     private Answer rightAnswer;
+    @Transient
+    private String proposition;
 
 }

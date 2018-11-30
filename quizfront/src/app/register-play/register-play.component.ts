@@ -30,6 +30,8 @@ export class RegisterPlayComponent implements OnInit {
   canPlay: string="false";
   dateDone : Date;
   timeLeft : number;
+  score : string ;
+  subscription ;
 
   private serverUrl = 'http://localhost:8080/socket';
 
@@ -39,7 +41,7 @@ export class RegisterPlayComponent implements OnInit {
     this.findQuizPlayers();
 
     this.my_timer = timer(1000,1000);
-    this.my_timer.subscribe(t=> {
+    this.subscription = this.my_timer.subscribe(t=> {
       this.timer= new Date( this.params.split('¤¤')[3]);
       this.timer.setMinutes(this.timer.getMinutes()+1);
       this.distance = Math.floor((this.timer.getTime() - new Date().getTime())/1000);
@@ -107,6 +109,13 @@ export class RegisterPlayComponent implements OnInit {
         this.appUser= user;
       }
     )
+  }
+  finish(){
+    this.quizService.calculateScore(this.aQuiz).subscribe(value => {
+      this.score=value;
+      this.canPlay='done';
+      this.subscription.unsubscribe();
+    })
   }
 
 }

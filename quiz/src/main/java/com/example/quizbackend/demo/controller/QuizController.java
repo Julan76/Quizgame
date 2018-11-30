@@ -2,6 +2,7 @@ package com.example.quizbackend.demo.controller;
 
 import com.example.quizbackend.demo.domain.GameStarted;
 import com.example.quizbackend.demo.domain.Player;
+import com.example.quizbackend.demo.domain.Question;
 import com.example.quizbackend.demo.domain.Quizz;
 import com.example.quizbackend.demo.repository.GameStartedRepository;
 import com.example.quizbackend.demo.repository.QuizRepository;
@@ -43,5 +44,21 @@ public class QuizController {
        return  gameStarted.map(gameStarted1 -> {
             return gameStarted1.getPlayers();
         }).orElseGet(ArrayList::new);
+    }
+    @PostMapping("/quiz/compute")
+    public String computeResult(@RequestBody Quizz quizz){
+        Quizz quizdb = quizRepository.findById(quizz.getId()).get();
+        int index = 0;
+        int score=0;
+        for (Question question : quizz.getQuestionList()) {
+            if(question.getProposition()!=null){
+                if( question.getProposition().equals(quizdb.getQuestionList().get(index).getRightAnswer().getLabel())) {
+                    score++;
+                };
+            }
+
+            index++;
+        }
+        return score+"/"+quizz.getQuestionList().size();
     }
 }

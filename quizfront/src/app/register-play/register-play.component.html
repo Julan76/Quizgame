@@ -26,17 +26,20 @@
             Le jeu est terminé !
         </p>
         <p *ngIf="canPlay=='true'">
-        <app-play-game [game]="aQuiz"></app-play-game>
+        <app-play-game  [game]="aQuiz"></app-play-game>
         </p>
       </mat-card-content>
-      <mat-card-actions>
-      </mat-card-actions>
     </mat-card>
-
+    <mat-card-actions *ngIf="canPlay=='true'">
+      <button (click)="finish()" mat-raised-button color="primary">Soumettre</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="canPlay=='done'">
+     <button *ngIf="score" mat-fab >{{score}} !</button>
+    </mat-card-actions>
   </mat-list-item>
 
 
-<mat-list>
-  <mat-list-item *ngFor="let player of players">{{player.firstname}} {{player.lastname}} a rejoint le quizz !</mat-list-item>
+<span>
+  <p *ngFor="let player of players">{{player.firstname}} {{player.lastname}} a rejoint le quizz !</p>
 
-</mat-list>
+</span>

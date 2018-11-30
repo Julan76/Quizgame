@@ -5,6 +5,7 @@ export class Question {
   public theme:string;
   public answerList: Answer[];
   public rightAnswer: Answer;
+  public proposition?:string;
 
 
 }
